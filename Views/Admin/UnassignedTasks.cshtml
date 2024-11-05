@@ -1,0 +1,52 @@
+﻿@model List<signedup.Models.Task>
+
+@{
+    ViewBag.Title = "UnAssigned Tasks";
+    Layout = "~/Views/Shared/AdminHomepage.cshtml";
+}
+
+<h2>Assigned Tasks</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Title)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Description)</th>
+            @*<th>@Html.DisplayNameFor(model => model.FirstOrDefault().AssignedUserId)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Deadline)</th>
+            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().IsCompleted)</th>*@
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var task in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => task.Title)</td>
+                    <td>@Html.DisplayFor(modelItem => task.Description)</td>
+                    @*<td>@Html.DisplayFor(modelItem => task.AssignedUserId)</td>
+                    <td>@Html.DisplayFor(modelItem => task.Deadline)</td>
+                    <td>@Html.DisplayFor(modelItem => task.IsCompleted)</td>*@
+                    <td>
+                        @Html.ActionLink("Edit", "EditTask", new { taskId = task.TaskId }) |
+                        @Html.ActionLink("Delete", "DeleteTask", new { taskId = task.TaskId })|
+                        @Html.ActionLink("Assign Task", "AssignUserTask", "Admin", new { taskId = task.TaskId }, null)
+
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="6" class="text-center">No assigned tasks available.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Index", "Admin", "Admin", null, new { @class = "btn btn-primary" })
+</p>

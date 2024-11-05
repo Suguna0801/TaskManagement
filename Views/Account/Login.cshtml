@@ -1,0 +1,83 @@
+﻿@*@{
+        ViewBag.Title = "Login";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    }
+
+    <h2>SignIn</h2>
+
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.Label("Username")
+            @Html.TextBox("username", null, new { @class = "form-control" })
+        </div>
+
+        <div>
+            @Html.Label("Password")
+            @Html.Password("password", null, new { @class = "form-control" })
+        </div>
+
+        <div>
+            <p>Forgot your password? <a href="@Url.Action("SignUp", "Account")">Reset it here</a>.</p>
+        </div>
+
+
+        <div>
+            <input type="submit" value="Login" class="btn btn-primary" />
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            Invalid username or password. Please try again.
+        </div>
+    }*@
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sign In</h2>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.Label("Username")
+        @Html.TextBox("username", null, new { @class = "form-control" })
+    </div>
+
+    <div>
+        @Html.Label("Password")
+        @Html.Password("password", null, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <p>Forgot your password? <a href="@Url.Action("SignUp", "Account")">Reset password</a>.</p>
+    </div>
+
+
+    <div>
+        <input type="submit" value="Login" class="btn btn-primary" />
+    </div>
+
+
+    <div class="mt-3">
+        <p>Don't have an account? <a href="@Url.Action("SignUp", "Account")">Sign up</a>.</p>
+    </div>
+}
+
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        Invalid username or password. Please try again.
+    </div>
+}
+
+

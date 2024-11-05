@@ -1,0 +1,54 @@
+﻿@model IEnumerable<signedup.Models.User>
+
+@{
+    ViewBag.Title = "User List";
+}
+
+<h2>User List</h2>
+
+<p>
+    @Html.ActionLink("Create New User", "SignUp", "Account", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date of Birth</th> 
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Gender</th>
+            <th>Role</th>
+            <th>Address</th> 
+            <th>State</th>
+            <th>City</th>
+            <th>Username</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName</td>
+                <td>@user.LastName</td>
+                <td>@user.DateOfBirth.ToString("yyyy-MM-dd")</td> <!-- Displaying Date of Birth -->
+                <td>@user.Email</td>
+                <td>@user.PhoneNumber</td>
+                <td>@user.Gender</td>
+                <td>@user.Role</td>
+                <td>@user.Address</td> <!-- Displaying Address -->
+                <td>@user.State</td> <!-- Displaying State -->
+                <td>@user.City</td> <!-- Displaying City -->
+                <td>@user.Username</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = user.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = user.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

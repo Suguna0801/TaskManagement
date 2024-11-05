@@ -1,0 +1,31 @@
+﻿@model IEnumerable<signedup.Models.Task>
+
+@{
+    ViewBag.Title = "Assigned Tasks";
+    Layout = "~/Views/Shared/UserHomepage.cshtml";
+}
+
+
+<h2>Your Assigned Tasks</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Deadline</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@task.Deadline?.ToString("yyyy-MM-dd")</td>
+                <td>@task.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>

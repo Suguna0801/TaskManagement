@@ -1,0 +1,52 @@
+﻿@model signedup.Models.Task
+
+@{
+    ViewBag.Title = "Create Task";
+    Layout = "~/Views/Shared/AdminHomepage.cshtml";
+}
+
+<h2>Create Task</h2>
+
+@using (Html.BeginForm("CreateTask", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control", placeholder = "Enter task title" })
+        @Html.ValidationMessageFor(m => m.Title)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control", placeholder = "Enter task description" })
+        @Html.ValidationMessageFor(m => m.Description)
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(m => m.AssignedUserId)
+            @Html.DropDownListFor(m => m.AssignedUserId, new SelectList(ViewBag.Users, "Id", "Name"), "Select a User", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.AssignedUserId)
+        </div>*@
+
+
+    @*<div class="form-group">
+            @Html.LabelFor(m => m.Deadline)
+            @Html.TextBoxFor(m => m.Deadline, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(m => m.Deadline)
+        </div>*@
+
+    @*<button type="submit" class="btn btn-primary">Create Task</button>*@
+
+    <div>
+        <input type="submit" value="Create Task" class="btn btn-primary" />
+    </div>
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        Please correct the errors above and try again.
+    </div>
+}
+

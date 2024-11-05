@@ -1,0 +1,25 @@
+﻿@model signedup.Repositories.TaskRepository
+
+
+@{
+    ViewBag.Title = "Assign Task to New Employee";
+}
+
+<h2>Assign Task to New Employee</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label for="userId">Select Employee:</label>
+        @Html.DropDownList("userId", new SelectList(ViewBag.NewEmployees, "Id", "FullName"), "Select Employee", new { @class = "form-control" })
+    </div>
+    <div>
+        <label for="taskId">Select Task:</label>
+        @Html.DropDownList("taskId", new SelectList(ViewBag.UnassignedTasks, "TaskId", "Title"), "Select Task", new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Assign Task</button>
+}
+
+<div>
+    @Html.ValidationSummary(true)
+</div>

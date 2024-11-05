@@ -1,0 +1,162 @@
+﻿@*@model signedup.Models.User
+
+    @{
+        ViewBag.Title = "Edit User";
+    }
+
+    <h2>Edit User</h2>
+
+    @using (Html.BeginForm("Edit", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(m => m.Id)
+
+
+
+
+        <div>
+            @Html.LabelFor(m => m.FirstName)
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FirstName)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.LastName)
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.LastName)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.PhoneNumber)
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.PhoneNumber)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Gender)
+            @Html.DropDownListFor(m => m.Gender, new SelectList(new List<SelectListItem>
+            {
+                new SelectListItem { Text = "Select Gender", Value = "" },
+                new SelectListItem { Text = "Male", Value = "Male" },
+                new SelectListItem { Text = "Female", Value = "Female" },
+                new SelectListItem { Text = "Other", Value = "Other" }
+            }, "Value", "Text"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Gender)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.Username)
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Username)
+        </div>
+
+
+
+        <div>
+            <input type="submit" value="Save Changes" class="btn btn-primary" />
+        </div>
+    }*@
+
+@model signedup.Models.User
+
+@{
+    ViewBag.Title = "Edit User";
+}
+
+<h2>Edit User</h2>
+
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.Id)
+
+    <div>
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.FirstName)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.LastName)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.DateOfBirth)
+        @Html.TextBoxFor(m => m.DateOfBirth, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date" }) <!-- Date of Birth Field -->
+        @Html.ValidationMessageFor(m => m.DateOfBirth)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.PhoneNumber)
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PhoneNumber)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Gender)
+        @Html.DropDownListFor(m => m.Gender, new SelectList(new List<SelectListItem>
+        {
+            new SelectListItem { Text = "Select Gender", Value = "" },
+            new SelectListItem { Text = "Male", Value = "Male" },
+            new SelectListItem { Text = "Female", Value = "Female" },
+            new SelectListItem { Text = "Other", Value = "Other" }
+        }, "Value", "Text"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Gender)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Role)
+        @Html.DropDownListFor(m => m.Role, new SelectList(new List<SelectListItem>
+        {
+            new SelectListItem { Text = "Select Role", Value = "" },
+            new SelectListItem { Text = "Frontend", Value = "Frontend" },
+            new SelectListItem { Text = "Backend", Value = "Backend" },
+            new SelectListItem { Text = "Designer", Value = "Designer" }
+        }, "Value", "Text"), new { @class = "form-control", @id = "Role" })
+        @Html.ValidationMessageFor(m => m.Role, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Address)
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control" }) <!-- Address Field -->
+        @Html.ValidationMessageFor(m => m.Address)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.State)
+        @Html.TextBoxFor(m => m.State, new { @class = "form-control" }) <!-- State Field -->
+        @Html.ValidationMessageFor(m => m.State)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.City)
+        @Html.TextBoxFor(m => m.City, new { @class = "form-control" }) <!-- City Field -->
+        @Html.ValidationMessageFor(m => m.City)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Username)
+    </div>
+
+    <div>
+        <input type="submit" value="Save Changes" class="btn btn-primary" />
+    </div>
+}

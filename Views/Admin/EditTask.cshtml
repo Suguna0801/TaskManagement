@@ -1,0 +1,73 @@
+﻿@*@model signedup.Models.Task
+
+    @{
+        ViewBag.Title = "Edit Task";
+    }
+
+    <h2>Edit Task</h2>
+
+    @using (Html.BeginForm("EditTask", "Admin", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+        @Html.Hidden("id", Model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title)
+            @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Title)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description)
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Deadline)
+            @Html.TextBoxFor(m => m.Deadline, "{0:dd.MM.yyyy HH:mm:ss}", new { @class = "form-control", type = "datetime-local" })
+            @Html.ValidationMessageFor(m => m.Deadline)
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Cancel</a>
+    }*@
+
+
+@model signedup.Models.Task
+
+@{
+    ViewBag.Title = "Edit Task";
+    Layout = "~/Views/Shared/AdminHomepage.cshtml";
+}
+
+<h2>Edit Task</h2>
+
+@using (Html.BeginForm("EditTask", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.TaskId)
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Title)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+        @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Description)
+    </div>
+
+    @*<div class="form-group">
+            @Html.LabelFor(m => m.Deadline)
+            @Html.TextBoxFor(m => m.Deadline, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", type = "datetime-local" })
+            @Html.ValidationMessageFor(m => m.Deadline)
+        </div>*@
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Cancel</a>
+}

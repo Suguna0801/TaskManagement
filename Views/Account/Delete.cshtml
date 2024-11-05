@@ -1,0 +1,94 @@
+﻿@*@model signedup.Models.User
+
+    @{
+        ViewBag.Title = "Delete User";
+    }
+
+    <h2>Delete User</h2>
+
+    <p>Are you sure you want to delete this user?</p>
+
+    <div>
+        <h4>User</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>First Name</dt>
+            <dd>@Model.FirstName</dd>
+            <dt>Last Name</dt>
+            <dd>@Model.LastName</dd>
+            <dt>Email</dt>
+            <dd>@Model.Email</dd>
+            <dt>Phone Number</dt>
+            <dd>@Model.PhoneNumber</dd>
+            <dt>Gender</dt>
+            <dd>@Model.Gender</dd>
+            <dt>Username</dt>
+            <dd>@Model.Username</dd>
+        </dl>
+    </div>
+
+    @using (Html.BeginForm("DeleteConfirmed", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Id)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-danger">Delete</button>
+                @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+            </div>
+        </div>
+    }*@
+
+
+@model signedup.Models.User
+
+@{
+    ViewBag.Title = "Delete User";
+}
+
+<h2>Delete User</h2>
+
+<p>Are you sure you want to delete this user?</p>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>First Name</dt>
+        <dd>@Model.FirstName</dd>
+        <dt>Last Name</dt>
+        <dd>@Model.LastName</dd>
+        <dt>Date of Birth</dt> <!-- Added Date of Birth -->
+        <dd>@Model.DateOfBirth.ToString("yyyy-MM-dd")</dd> <!-- Displaying Date of Birth -->
+        <dt>Email</dt>
+        <dd>@Model.Email</dd>
+        <dt>Phone Number</dt>
+        <dd>@Model.PhoneNumber</dd>
+        <dt>Gender</dt>
+        <dd>@Model.Gender</dd>
+        <dt>Role</dt>
+        <dt>@Model.Role</dt>
+        <dt>Address</dt> <!-- Added Address -->
+        <dd>@Model.Address</dd> <!-- Displaying Address -->
+        <dt>State</dt> <!-- Added State -->
+        <dd>@Model.State</dd> <!-- Displaying State -->
+        <dt>City</dt> <!-- Added City -->
+        <dd>@Model.City</dd> <!-- Displaying City -->
+        <dt>Username</dt>
+        <dd>@Model.Username</dd>
+    </dl>
+</div>
+
+@using (Html.BeginForm("DeleteConfirmed", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

@@ -1,0 +1,43 @@
+﻿
+@model IEnumerable<signedup.Models.Task>
+
+
+@{
+    ViewBag.Title = "Task List";
+    Layout = "~/Views/Shared/AdminHomepage.cshtml";
+}
+
+<h2>Task List</h2>
+<a href="@Url.Action("CreateTask", "Admin")" class="btn btn-primary">Add Task</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            @* Uncomment if you want to display the deadline *@
+            @*<th>Deadline</th>*@
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Title</td>  <!-- Updated from Title to TaskName -->
+                <td>@task.Description</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditTask", "Admin", new { id = task.TaskId }, null)
+                    |
+                    @Html.ActionLink("Delete", "DeleteTask", "Admin", new { id = task.TaskId }, null)
+                    |
+                    @Html.ActionLink("Assign Task", "AssignUserTask", "Admin", new { id = task.TaskId }, null)
+                    @*<a href="@Url.Action("AssignUserTask", "Admin", new { id = task.TaskId })">Assign Task</a>*@
+
+                    @*<a href="@Url.Action("AssignUserTask", "Admin", new { id = task.TaskId })">Assign Task</a>*@
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

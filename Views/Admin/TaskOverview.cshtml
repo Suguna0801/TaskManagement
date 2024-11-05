@@ -1,0 +1,191 @@
+﻿@*@model signedup.Models.Task
+
+    @{
+        ViewBag.Title = "Edit Task";
+        Layout = "~/Views/Shared/AdminHomepage.cshtml";
+    }
+    <h2>Unassigned Tasks</h2>
+    <table>
+        <tr>
+            <th>Task ID</th>
+            <th>Task Name</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var task in Model.GetUnassignedTasks)
+        {
+            <tr>
+                <td>@task.TaskId</td>
+                <td>@task.Title</td>
+                <td>
+                    @Html.ActionLink("Assign", "AssignTask", new { taskId = task.TaskId, userId = selectedUserId })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <h2>Assigned Tasks</h2>
+    <table>
+        <tr>
+            <th>Task ID</th>
+            <th>Task Name</th>
+            <th>Assigned To</th>
+        </tr>
+        @foreach (var task in Model.GetAssignedTasks)
+        {
+            <tr>
+                <td>@task.TaskId</td>
+                <td>@task.Title</td>
+                <td>@task.AssignedUserId</td>
+            </tr>
+        }
+    </table>*@
+
+
+@*@model signedup.Models.Task
+
+    @{
+        ViewBag.Title = "Edit Task";
+        Layout = "~/Views/Shared/AdminHomepage.cshtml";
+
+        // Create an instance of TaskRepository
+        var taskRepository = new signedup.Repositories.TaskRepository();
+
+        // Retrieve assigned and unassigned tasks
+        var unassignedTasks = taskRepository.GetUnassignedTasks(); // Get unassigned tasks
+        var assignedTasks = taskRepository.GetAssignedTasks(); // Get assigned tasks
+    }
+    <h2>Unassigned Tasks</h2>
+    <table>
+        <tr>
+            <th>Task ID</th>
+            <th>Task Name</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var task in unassignedTasks)
+        {
+            <tr>
+                <td>@task.TaskId</td>
+                <td>@task.Title</td>
+                <td>
+                    @Html.ActionLink("Assign", "AssignTask", new { taskId = task.TaskId, userId = selectedUserId })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <h2>Assigned Tasks</h2>
+    <table>
+        <tr>
+            <th>Task ID</th>
+            <th>Task Name</th>
+            <th>Assigned To</th>
+        </tr>
+        @foreach (var task in assignedTasks)
+        {
+            <tr>
+                <td>@task.TaskId</td>
+                <td>@task.Title</td>
+                <td>@task.AssignedUserId</td>
+            </tr>
+        }
+    </table>*@
+
+@*@model signedup.Models.Task
+
+    @{
+        ViewBag.Title = "Edit Task";
+        Layout = "~/Views/Shared/AdminHomepage.cshtml";
+
+        // Create an instance of TaskRepository with a connection string
+        //string connectionString = ConfigurationManager.ConnectionStrings["YourConnectionStringName"].ConnectionString;
+        string connectionString = "Data Source=DESKTOP-ENRUGTD\\SQLEXPRESS;Initial Catalog=suguna;Integrated Security=True;";
+        var taskRepository = new signedup.Repositories.TaskRepository(connectionString);
+
+        // Retrieve assigned and unassigned tasks
+        var unassignedTasks = taskRepository.GetUnassignedTasks(); // Get unassigned tasks
+        var assignedTasks = taskRepository.GetAssignedTasks(); // Get assigned tasks
+
+        // Retrieve selectedUserId from ViewBag
+        string selectedUserId = ViewBag.selectedUserId;
+    }
+
+    <h2>Unassigned Tasks</h2>
+    <table>
+        <tr>
+            <th>Task ID</th>
+            <th>Task Name</th>
+            <th>Action</th>
+        </tr>
+        @foreach (var task in unassignedTasks)
+        {
+            <tr>
+                <td>@task.TaskId</td>
+                <td>@task.Title</td>
+                <td>
+                    @Html.ActionLink("Assign", "AssignTask", new { taskId = task.TaskId, userId = selectedUserId })
+                </td>
+            </tr>
+        }
+    </table>
+
+    <h2>Assigned Tasks</h2>
+    <table>
+        <tr>
+            <th>Task ID</th>
+            <th>Task Name</th>
+            <th>Assigned To</th>
+        </tr>
+        @foreach (var task in assignedTasks)
+        {
+            <tr>
+                <td>@task.TaskId</td>
+                <td>@task.Title</td>
+                <td>@task.AssignedUserId</td>
+            </tr>
+        }
+    </table>*@
+
+@model signedup.Models.TaskOverviewViewModel
+
+@{
+    ViewBag.Title = "Task Overview";
+    Layout = "~/Views/Shared/AdminHomepage.cshtml";
+}
+
+<h2>Unassigned Tasks</h2>
+<table>
+    <tr>
+        <th>Task ID</th>
+        <th>Task Name</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var task in Model.UnassignedTasks)
+    {
+        <tr>
+            <td>@task.TaskId</td>
+            <td>@task.Title</td>
+            <td>
+                @Html.ActionLink("Assign", "AssignTask", new { taskId = task.TaskId, userId = ViewBag.SelectedUserId })
+            </td>
+        </tr>
+    }
+</table>
+
+<h2>Assigned Tasks</h2>
+<table>
+    <tr>
+        <th>Task ID</th>
+        <th>Task Name</th>
+        <th>Assigned To</th>
+    </tr>
+    @foreach (var task in Model.AssignedTasks)
+    {
+        <tr>
+            <td>@task.TaskId</td>
+            <td>@task.Title</td>
+            <td>@task.AssignedUserId</td>
+        </tr>
+    }
+</table>
+
+

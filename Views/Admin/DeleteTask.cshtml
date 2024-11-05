@@ -1,0 +1,44 @@
+﻿@model signedup.Models.Task
+
+@{
+    ViewBag.Title = "Delete Task";
+    Layout = "~/Views/Shared/AdminHomepage.cshtml";
+}
+
+<h2>Delete Task</h2>
+
+<div>
+    <h4>Task</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(m => m.Title)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => m.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.Description)
+        </dd>
+        @*<dt>
+            @Html.DisplayNameFor(m => m.Deadline)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.Deadline)
+        </dd>*@
+    </dl>
+</div>
+
+<h4>Are you sure you want to delete this task?</h4>
+
+@using (Html.BeginForm("DeleteTask", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("id", Model.TaskId) // Pass the task ID to the delete action
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="@Url.Action("Index", "Admin")" class="btn btn-secondary">Cancel</a>
+}

@@ -1,0 +1,214 @@
+﻿@model signedup.Models.User
+@{
+    ViewBag.Title = "Sign Up";
+    <a href="~/Views/Shared/_Layout.cshtml"></a>
+
+}
+
+<h2>Sign Up</h2>
+
+
+@using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @id = "FirstName" })
+        @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @id = "LastName" })
+        @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.DateOfBirth)
+        @Html.TextBoxFor(m => m.DateOfBirth, "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @id = "DateOfBirth" }) <!-- Date of Birth Field -->
+        @Html.ValidationMessageFor(m => m.DateOfBirth, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @id = "Email" })
+        @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.PhoneNumber)
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @id = "PhoneNumber" })
+        @Html.ValidationMessageFor(m => m.PhoneNumber, null, new { @class = "text-danger" })
+    </div>
+
+    <div class="gender-radio-group">
+        <label class="gender-label">@Html.LabelFor(m => m.Gender)</label>
+
+        <div class="gender-options">
+            @Html.RadioButtonFor(m => m.Gender, "Male", new { id = "GenderMale", @class = "gender-radio" })
+            <label for="GenderMale">Male</label>
+
+            @Html.RadioButtonFor(m => m.Gender, "Female", new { id = "GenderFemale", @class = "gender-radio" })
+            <label for="GenderFemale">Female</label>
+
+            @Html.RadioButtonFor(m => m.Gender, "Other", new { id = "GenderOther", @class = "gender-radio" })
+            <label for="GenderOther">Other</label>
+        </div>
+
+        @Html.ValidationMessageFor(m => m.Gender, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Role)
+        @Html.DropDownListFor(m => m.Role, new SelectList(new List<SelectListItem>
+        {
+            new SelectListItem { Text = "Select Role", Value = "" },
+            new SelectListItem { Text = "Frontend", Value = "Frontend" },
+            new SelectListItem { Text = "Backend", Value = "Backend" },
+            new SelectListItem { Text = "Designer", Value = "Designer" }
+        }, "Value", "Text"), new { @class = "form-control", @id = "Role" })
+        @Html.ValidationMessageFor(m => m.Role, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Address)
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @id = "Address" })
+        @Html.ValidationMessageFor(m => m.Address, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.State)
+        @Html.DropDownListFor(m => m.State, new List<SelectListItem> {
+            new SelectListItem { Text = "Tamilnadu", Value = "Tamilnadu" },
+            new SelectListItem { Text = "Karnataka", Value = "Karnataka" },
+            new SelectListItem { Text = "Kerala", Value = "Kerala" }
+        }, "Select State", new { @class = "form-control", @id = "StateDropdown" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.City)
+        @Html.DropDownListFor(m => m.City, new List<SelectListItem>(), "Select City", new { @class = "form-control", @id = "CityDropdown" })
+    </div>
+
+
+    <div>
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @id = "Username" })
+        @Html.ValidationMessageFor(m => m.Username, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @id = "Password" })
+        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.ConfirmPassword)
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @id = "ConfirmPassword" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassword, null, new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <input type="submit" value="Sign Up" class="btn btn-primary" />
+    </div>
+
+    <div>
+        <p>Already have an account? <a href="@Url.Action("Login", "Account")">Sign in</a></p>
+    </div>
+
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {
+            // Validate FirstName
+            $("#FirstName").on("input", function () {
+                var nameRegex = /^[a-zA-Z]+$/;
+                var value = $(this).val();
+
+                if (!nameRegex.test(value)) {
+                    $(this).addClass("input-validation-error").removeClass("input-validation-success");
+                    $(this).next(".text-danger").text("Please enter a valid first name (only letters allowed).");
+                } else if (value.length < 3) {
+                    $(this).addClass("input-validation-error").removeClass("input-validation-success");
+                    $(this).next(".text-danger").text("First Name must be at least 3 characters long.");
+                } else {
+                    $(this).removeClass("input-validation-error").addClass("input-validation-success");
+                    $(this).next(".text-danger").text("");  // Clear error message
+                }
+            });
+
+            // Validate LastName
+            $("#LastName").on("input", function () {
+                var nameRegex = /^[a-zA-Z]+$/;
+                var value = $(this).val();
+
+                if (!nameRegex.test(value)) {
+                    $(this).addClass("input-validation-error").removeClass("input-validation-success");
+                    $(this).next(".text-danger").text("Please enter a valid last name (only letters allowed).");
+                } else if (value.length < 3) {
+                    $(this).addClass("input-validation-error").removeClass("input-validation-success");
+                } else {
+                    $(this).removeClass("input-validation-error").addClass("input-validation-success");
+                    $(this).next(".text-danger").text("");  // Clear error message
+                }
+            });
+
+            // Validate PhoneNumber
+            $("#PhoneNumber").on("input", function () {
+                var phoneRegex = /^[0-9]{10}$/; // Only 10-digit numbers
+                var value = $(this).val();
+
+                if (!phoneRegex.test(value)) {
+                    $(this).addClass("input-validation-error").removeClass("input-validation-success");
+                    $(this).next(".text-danger").text("Phone number must be 10 digits long.");
+                } else {
+                    $(this).removeClass("input-validation-error").addClass("input-validation-success");
+                    $(this).next(".text-danger").text("");
+                }
+            });
+
+            // Real-time password matching validation
+            $("#Password, #ConfirmPassword").on("input", function () {
+                var password = $("#Password").val();
+                var confirmPassword = $("#ConfirmPassword").val();
+
+                if (confirmPassword !== password) {
+                    $("#ConfirmPassword").addClass("input-validation-error").removeClass("input-validation-success");
+                    $(".field-validation-error").text("Passwords do not match.").css("color", "red");
+                } else {
+                    $("#ConfirmPassword").removeClass("input-validation-error").addClass("input-validation-success");
+                    $(".field-validation-error").text(""); // Remove error if passwords match
+                }
+            });
+
+            // AJAX for City Dropdown
+            $('#StateDropdown').change(function () {
+                var state = $(this).val();
+                if (state) {
+                    $.ajax({
+                        url: '@Url.Action("GetCities", "Account")',
+                        type: 'GET',
+                        data: { state: state },
+                        success: function (data) {
+                            $('#CityDropdown').empty().append('<option value="">Select City</option>');
+                            $.each(data, function (i, city) {
+                                $('#CityDropdown').append('<option value="' + city.Value + '">' + city.Text + '</option>');
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("AJAX Error: ", status, error); // Error handling
+                        }
+                    });
+                } else {
+                    $('#CityDropdown').empty().append('<option value="">Select City</option>');
+                }
+            });
+        });
+    </script>
+}
